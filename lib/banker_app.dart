@@ -1,6 +1,8 @@
 // @dart = 2.9
 
 import 'package:banker/providers/authentication/authentication/authentication_bloc.dart';
+import 'package:banker/providers/payment/payment_bloc.dart';
+import 'package:banker/repositories/payment_repository.dart';
 import 'package:banker/views/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +25,11 @@ class _BankerAppState extends State<BankerApp> {
         BlocProvider(
           create: (context) => AuthenticationBloc(
             userRepository: UserRepository(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => PaymentBloc(
+            paymentRepository: PaymentRepository(),
           ),
         ),
       ],

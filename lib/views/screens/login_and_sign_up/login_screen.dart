@@ -5,6 +5,7 @@ import 'package:banker/models/user_model/user_model.dart';
 import 'package:banker/providers/authentication/authentication/authentication_bloc.dart';
 import 'package:banker/providers/authentication/login/login_bloc.dart';
 import 'package:banker/repositories/user_repository.dart';
+import 'package:banker/views/screens/home/home_screen.dart';
 import 'package:banker/views/widgets/banker_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,62 +40,46 @@ class _LoginScreenState extends State<LoginScreen> {
         authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
         userRepository: userRepository,
       ),
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          leading: SizedBox.shrink(),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_forward,
-                color: ColorRepository.greyish,
-              ),
-              onPressed: () {
-                // TODO
-                // Navigator.pushReplacement(
-                //   context,
-                //   NavigationScreen.route,
-                // );
-              },
-            )
-          ],
-        ),
-        body: BlocListener<LoginBloc, LoginState>(
-          listener: (context, state) {
-            state.when(
-              initial: () {},
-              loading: () {
-                Loader.show(
-                  context,
-                  progressIndicator: BankerCircularProgressIndicator(),
-                );
-              },
-              success: (User user) {
-                Loader.hide();
-                showPopUp(
-                  context,
-                  title: 'Success',
-                  content: 'You have been logged In as ${user.name}',
-                  onPressed: () {
-                    // TODO
-                    // Navigator.pushReplacement(context, NavigationScreen.route);
-                  },
-                );
-              },
-              error: (NetworkExceptions error) {
-                Loader.hide();
-                showPopUp(
-                  context,
-                  title: 'Error',
-                  content: NetworkExceptions.getErrorMessage(error),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                );
-              },
-            );
-          },
-          child: SingleChildScrollView(
+      child: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          state.when(
+            initial: () {},
+            loading: () {
+              Loader.show(
+                context,
+                progressIndicator: BankerCircularProgressIndicator(),
+              );
+            },
+            success: (User user) {
+              Loader.hide();
+              showPopUp(
+                context,
+                title: 'Success',
+                content: 'You have been logged In as ${user.name}',
+                onPressed: () {
+                  Navigator.pushReplacement(context, HomeScreen.route);
+                },
+              );
+            },
+            error: (NetworkExceptions error) {
+              Loader.hide();
+              showPopUp(
+                context,
+                title: 'Error',
+                content: NetworkExceptions.getErrorMessage(error),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+          );
+        },
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            leading: SizedBox.shrink(),
+          ),
+          body: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

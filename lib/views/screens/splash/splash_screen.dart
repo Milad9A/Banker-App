@@ -1,5 +1,6 @@
 import 'package:banker/config/theme/color_repository.dart';
 import 'package:banker/providers/authentication/authentication/authentication_bloc.dart';
+import 'package:banker/views/screens/home/home_screen.dart';
 import 'package:banker/views/screens/login_and_sign_up/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (context, state) {
         state.maybeMap(
           authenticated: (state) {
-            // TODO
-            // Navigator.pushReplacement(context, NavigationScreen.route);
+            Navigator.pushReplacement(context, HomeScreen.route);
           },
           unAuthenticated: (state) {
             Navigator.pushReplacement(context, LoginScreen.route);
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: ColorRepository.darkBlue,
                   width: double.infinity,
                   child: Stack(
-                    alignment: Alignment.center,
+                    alignment: Alignment.topCenter,
                     children: [
                       Image.asset(
                         'assets/images/splash_background.png',

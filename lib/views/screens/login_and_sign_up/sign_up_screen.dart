@@ -4,6 +4,7 @@ import 'package:banker/models/user_model/user_model.dart';
 import 'package:banker/providers/authentication/authentication/authentication_bloc.dart';
 import 'package:banker/providers/authentication/sign_up/sign_up_bloc.dart';
 import 'package:banker/repositories/user_repository.dart';
+import 'package:banker/views/screens/home/home_screen.dart';
 import 'package:banker/views/widgets/banker_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,11 +71,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   title: 'Success',
                   content: 'User Created Successfully',
                   onPressed: () {
-                    // TODO
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   SignUpTagsScreen.route,
-                    // );
+                    Navigator.pushReplacement(
+                      context,
+                      HomeScreen.route,
+                    );
                   },
                 );
               },
